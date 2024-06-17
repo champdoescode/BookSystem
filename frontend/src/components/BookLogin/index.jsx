@@ -12,23 +12,7 @@ const BookLogin = () => {
     const [errors, setErrors] = useState({});
     const [popup, setPopup] = useState({ isVisible: false, message: '', isSuccess: false });
     const navigate = useNavigate();
-    const login = async (username, password) => {
-        const response = await fetch('/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ username, password })
-        });
-      
-        if (response.ok) {
-          const data = await response.json();
-          localStorage.setItem('token', data.token);
-          // Update user state in context
-        } else {
-          // Handle login error
-        }
-      };
+    const { login } = useContext(AuthContext); // Use the login function from AuthContext
 
     const validate = {
         userName: (value) => value ? '' : 'Username is required.',
