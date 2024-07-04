@@ -5,14 +5,14 @@ import AuthContext from '../../AuthContext'; // Import the AuthContext
 
 const BookLogin = () => {
     
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         userName: '',
         password: ''
     });
     const [errors, setErrors] = useState({});
     const [popup, setPopup] = useState({ isVisible: false, message: '', isSuccess: false });
-    const navigate = useNavigate();
-    const { login } = useContext(AuthContext); // Use the login function from AuthContext
 
     const validate = {
         userName: (value) => value ? '' : 'Username is required.',
@@ -63,48 +63,52 @@ const BookLogin = () => {
             setErrors(newErrors);
         }
     };
-
     return (
-        <div className='flex flex-col justify-center items-center w-8/12 py-16'>
-            <div className='bg-white py-2 px-8 opacity-80 rounded-lg w-full text-center'>Login to your Account</div>
-            <form className='bg-white opacity-80 w-full rounded-lg px-8 flex flex-col' onSubmit={handleSubmit}>
-                <div className='mt-6 flex flex-col'>
-                    <label className='text-neutral-500 text-sm' htmlFor="userName">Username</label>
-                    <input
-                        className='border-b pt-[1px] pb-[12px] border-neutral-300 outline-none'
-                        type="text"
-                        name="userName"
-                        id="userName"
-                        value={formData.userName}
-                        onChange={handleChange}
-                        required
-                    />
-                    {errors.userName && <p className="text-red-500 text-sm">{errors.userName}</p>}
+        <>
+            <div className='w-full flex justify-center items-center'>
+
+                <div className='flex flex-col justify-center items-center w-6/12 py-16 border mt-16'>
+                    <div className='bg-white py-2 px-8 opacity-80 rounded-lg w-full text-center'>Login to your Account</div>
+                    <form className='bg-white opacity-80 w-full rounded-lg px-8 flex flex-col' onSubmit={handleSubmit}>
+                        <div className='mt-6 flex flex-col'>
+                            <label className='text-neutral-500 text-sm' htmlFor="userName">Username</label>
+                            <input
+                                className='border-b pt-[1px] pb-[12px] border-neutral-300 outline-none'
+                                type="text"
+                                name="userName"
+                                id="userName"
+                                value={formData.userName}
+                                onChange={handleChange}
+                                required
+                            />
+                            {errors.userName && <p className="text-red-500 text-sm">{errors.userName}</p>}
+                        </div>
+                        <div className='mt-6 flex flex-col'>
+                            <label className='text-neutral-500 text-sm' htmlFor="password">Password</label>
+                            <input
+                                className='border-b pt-[1px] pb-[12px] border-neutral-300 outline-none'
+                                type="password"
+                                name="password"
+                                id="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                required
+                            />
+                            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                        </div>
+                        <button className='bg-teal-500 text-white py-2 rounded-xl my-4' type="submit">Login</button>
+                    </form>
+                    {popup.isVisible && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white p-8 rounded-lg text-center">
+                                <h2 className="text-xl mb-4">{popup.message}</h2>
+                                <button className="bg-teal-500 text-white py-2 px-4 rounded" onClick={() => setPopup({ isVisible: false, message: '', isSuccess: false })}>OK</button>
+                            </div>
+                        </div>
+                    )}
                 </div>
-                <div className='mt-6 flex flex-col'>
-                    <label className='text-neutral-500 text-sm' htmlFor="password">Password</label>
-                    <input
-                        className='border-b pt-[1px] pb-[12px] border-neutral-300 outline-none'
-                        type="password"
-                        name="password"
-                        id="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        required
-                    />
-                    {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-                </div>
-                <button className='bg-teal-500 text-white py-2 rounded-xl my-4' type="submit">Login</button>
-            </form>
-            {popup.isVisible && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-8 rounded-lg text-center">
-                        <h2 className="text-xl mb-4">{popup.message}</h2>
-                        <button className="bg-teal-500 text-white py-2 px-4 rounded" onClick={() => setPopup({ isVisible: false, message: '', isSuccess: false })}>OK</button>
-                    </div>
-                </div>
-            )}
-        </div>
+            </div>
+        </>
     );
 }
 

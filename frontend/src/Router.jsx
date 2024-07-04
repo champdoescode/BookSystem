@@ -7,6 +7,8 @@ import BookRegistration from './components/BookRegistration'
 import AdminDashboard from './components/AdminDashboard'
 import UserDashboard from './components/UserDashboard'
 import AddBook from './components/AddBook'
+import BookDetails from './pages/BookDetails'
+import Buying from './pages/Buyings'
 
 const Router = () => {
   return (
@@ -22,6 +24,8 @@ const Router = () => {
                 <Route path="/login/admin" element={<Outlet />} >
                     <Route index element={<AdminDashboard/>}/>
                     <Route path='/login/admin/addbook' element={<AddBook/>} />
+                    <Route path='/login/admin/bookdetails' element={<BookDetails/>} />
+                    <Route path='/login/admin/buyings' element={<Buying/>} />
                 </Route>
                 <Route path="/login/user" element={<UserDashboard />} />
                 
